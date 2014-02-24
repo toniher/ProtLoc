@@ -5,6 +5,12 @@ use strict;
 use Math::MatrixReal;
 use Bio::SeqIO;
 
+# We get current location of the script
+use File::Basename;
+my $dirname = dirname(__FILE__);
+my $varloc = $dirname."/var";
+my $avgloc = $dirname."/avg";
+
 my $file = shift;
 
 if ( $file && -e $file ) {
@@ -62,42 +68,42 @@ sub process {
 		$stringx.="\[\t$freqmatrix[$k]\t\]\n";
 	}
 
-	open (VAR, "var/var-0freq") || die "cannot open Variances"; #Matrix of protein variances
+	open (VAR, "$varloc/var-0freq") || die "cannot open Variances"; #Matrix of protein variances
 
 	while (<VAR>) {
 		$vartext.=$_;
 	}
 	close (VAR);
 
-	open (INTRA, "avg/avg-1freq") || die "cannot open Intra"; #Average of intra group
+	open (INTRA, "$avgloc/avg-1freq") || die "cannot open Intra"; #Average of intra group
 
 	while (<INTRA>) {
 		$intratext.=$_;
 	}
 	close (INTRA);
 
-	open (EXTRA, "avg/avg-2freq") || die "cannot open Extra"; #Average of extra group
+	open (EXTRA, "$avgloc/avg-2freq") || die "cannot open Extra"; #Average of extra group
 
 	while (<EXTRA>) {
 		$extratext.=$_;
 	}
 	close (EXTRA);
 
-	open (ANCH, "avg/avg-3freq") || die "cannot open Anch"; #Average of anch group
+	open (ANCH, "$avgloc/avg-3freq") || die "cannot open Anch"; #Average of anch group
 
 	while (<ANCH>) {
 		$anchtext.=$_;
 	}
 	close (ANCH);
 
-	open (MEM, "avg/avg-4freq") || die "cannot open Mem"; #Average of mem group
+	open (MEM, "$avgloc/avg-4freq") || die "cannot open Mem"; #Average of mem group
 
 	while (<MEM>) {
 		$memtext.=$_;
 	}
 	close (MEM);
 
-	open (NUCL, "avg/avg-5freq") || die "cannot open Nucl"; #Average of nucl group
+	open (NUCL, "$avgloc/avg-5freq") || die "cannot open Nucl"; #Average of nucl group
 
 	while (<NUCL>) {
 		$nucltext.=$_;

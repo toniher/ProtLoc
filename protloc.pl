@@ -21,12 +21,6 @@ if ( $file && -e $file ) {
 
 }
 
-
-# Initialize matrices
-my @matrix;
-my @freqmatrix;
-
-
 sub process {
 
 	my $seqstring = shift;
@@ -35,15 +29,20 @@ sub process {
 	chomp($seqstring);
 
 	my @seqarray=split("", $seqstring);
-
+	
+	# Initialize matrices
+	my @matrix;
+	my @freqmatrix;
+	
 	# Fill row of prot with zeroes
 	for (my $i=0; $i<21; $i++) { 
 		$matrix[$i]=0;
 	}
 
 	# Assing freqs
+
 	for (my $i=0; $i<$#seqarray + 1; $i++) {
-		&freq($seqarray[$i]);
+		&freq($seqarray[$i], \@matrix);
 	}
 
 	for (my $j=0; $j<21; $j++) {
@@ -174,29 +173,30 @@ sub process {
 sub freq { 
 
 	my $in= shift;
+	my $matrix = shift;
 
-	if ($in=~/A/i) {$matrix[0]++;}
-	if ($in=~/C/i) {$matrix[1]++;}
-	if ($in=~/D/i) {$matrix[2]++;}
-	if ($in=~/E/i) {$matrix[3]++;}
-	if ($in=~/F/i) {$matrix[4]++;}
-	if ($in=~/G/i) {$matrix[5]++;}
-	if ($in=~/H/i) {$matrix[6]++;}
-	if ($in=~/I/i) {$matrix[7]++;}
-	if ($in=~/K/i) {$matrix[8]++;}
-	if ($in=~/L/i) {$matrix[9]++;}
-	if ($in=~/M/i) {$matrix[10]++;}
-	if ($in=~/N/i) {$matrix[11]++;}
-	if ($in=~/P/i) {$matrix[12]++;}
-	if ($in=~/Q/i) {$matrix[13]++;}
-	if ($in=~/R/i) {$matrix[14]++;}
-	if ($in=~/S/i) {$matrix[15]++;}
-	if ($in=~/T/i) {$matrix[16]++;}
-	if ($in=~/V/i) {$matrix[17]++;}
-	if ($in=~/W/i) {$matrix[18]++;}
-	if ($in=~/Y/i) {$matrix[19]++;}
+	if ($in=~/A/i) {$matrix->[0]++;}
+	if ($in=~/C/i) {$matrix->[1]++;}
+	if ($in=~/D/i) {$matrix->[2]++;}
+	if ($in=~/E/i) {$matrix->[3]++;}
+	if ($in=~/F/i) {$matrix->[4]++;}
+	if ($in=~/G/i) {$matrix->[5]++;}
+	if ($in=~/H/i) {$matrix->[6]++;}
+	if ($in=~/I/i) {$matrix->[7]++;}
+	if ($in=~/K/i) {$matrix->[8]++;}
+	if ($in=~/L/i) {$matrix->[9]++;}
+	if ($in=~/M/i) {$matrix->[10]++;}
+	if ($in=~/N/i) {$matrix->[11]++;}
+	if ($in=~/P/i) {$matrix->[12]++;}
+	if ($in=~/Q/i) {$matrix->[13]++;}
+	if ($in=~/R/i) {$matrix->[14]++;}
+	if ($in=~/S/i) {$matrix->[15]++;}
+	if ($in=~/T/i) {$matrix->[16]++;}
+	if ($in=~/V/i) {$matrix->[17]++;}
+	if ($in=~/W/i) {$matrix->[18]++;}
+	if ($in=~/Y/i) {$matrix->[19]++;}
 
-	$matrix[20]++;
+	$matrix->[20]++;
 	
 }
 

@@ -14,8 +14,15 @@ if ( $file && -e $file ) {
 		my $string = $seq->seq;
 		my $id = $seq->id;
 
-		my $outcome = process( $string );
-		print $id."\t".join("\t", @{$outcome}), "\n";
+		my $value = process( $string );
+		my @outcome;
+
+		foreach my $entry (sort { $value->{$a} <=> $value->{$b} } keys %{$value}) {
+	
+			push(@outcome, "$entry: $value->{$entry}");
+		}
+
+		print $id."\t".join("\t", @outcome), "\n";
 
 	}
 

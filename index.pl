@@ -10,7 +10,7 @@ get '/' => sub {
 	$self->render('index');
 };
 
-post '/submit' => sub {
+post '/' => sub {
 	my $self = shift;
 	my $id = $self->param('id');
 	my $seq = $self->param('seq');
@@ -24,7 +24,7 @@ post '/submit' => sub {
 		push( @outcome, $str );
 	}
 	
-	$self->render('submit', seq => $seq, result => \@outcome );
+	$self->render('submit', id=> $id, seq => $seq, result => \@outcome );
 };
 
 # Route with placeholder
@@ -63,7 +63,7 @@ __DATA__
 <h1>ProtLoc</h1>
 <p><strong>ProtLoc</strong> is a tool that assigns a possible cellular localization of polypeptide sequences according to their amino acid frequencies against predefined sets (INTRACELLULAR, EXTRACELLULAR, MEMBRANE, ANCHORED and NUCLEAR).</p>
 <div id="form">
-<form method="post" action="/submit">
+<form method="post" action="/">
 <label>Name/ID</label><input type="text" name="id">
 <label>Sequence</label><textarea name="seq">
 </textarea>
@@ -87,10 +87,16 @@ __DATA__
 </head>
 <body>
 <h1>ProtLoc Results</h1>
-<div id="seq">
-Sequence: 
-<%= $seq %>.
-</div>
+<p><strong>ProtLoc</strong> is a tool that assigns a possible cellular localization of polypeptide sequences according to their amino acid frequencies against predefined sets (INTRACELLULAR, EXTRACELLULAR, MEMBRANE, ANCHORED and NUCLEAR).</p>
+<div id="form">
+<form method="post" action="/">
+<label>Name/ID</label><input type="text" name="id" value="<%= $id %>">
+<label>Sequence</label><textarea name="seq">
+<%= $seq %>
+</textarea>
+<input type="submit" value="Predict!">
+</form>
+<h3>Results</h3>
 <div id="result">
 <ul>
 % foreach my $item (@$result) {
@@ -98,6 +104,13 @@ Sequence:
 % }
 </ul>
 </div>
+<h3>Bibliography</h3>
+<blockquote>
+<ul>
+<li>J. Cedano, P. Aloy, J.A. Pérez-Pons, and E. Querol, <em>Relation betweenm aminoacid composition and cellular localisation of proteins</em>, Journal of Molecular Biology, 266, 594-600, 1997.</li>
+</ul>
+</blockquote>
+<p align='right'>Contact <a href='mailto:toniher\@bioinf.uab.cat'>toniher@bioinf.uab.cat</a> IBB-UAB 2002-2014</p>
 </body>
 </html>
 

@@ -14,3 +14,11 @@ Usage:
 
 Output is a row per entry result ordered by location likelihood.
 
+## Web application
+
+This can be tested just running:
+	morbo index.pl
+
+
+
+

@@ -43,8 +43,16 @@ get '/api/seq/:seq' => sub {
 	}
 	
 	my $out;
-	$out->{"result"} = \@outcome;
-	$out->{"seq"} = $seq;
+	
+	my @seqs = ();
+	
+	$seqs[0] = {};
+	$seqs[0]->{"seq"} = $seq;
+	$seqs[0]->{"distance"} = \@outcome;
+	
+	$out->{"program"} = "ProtLoc";
+	$out->{"version"} = "0.1";
+	$out->{"results"} = \@seqs;
 	
 	$self->render(json => $out );
 };

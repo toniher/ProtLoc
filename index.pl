@@ -51,7 +51,7 @@ get '/api/seq/:seq' => sub {
 	$seqs[0]->{"distance"} = \@outcome;
 	
 	$out->{"program"} = "ProtLoc";
-	$out->{"version"} = "0.1";
+	$out->{"version"} = "0.1.0";
 	$out->{"results"} = \@seqs;
 	
 	$self->render(json => $out );

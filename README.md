@@ -1,6 +1,8 @@
 ProtLoc
 =======
 
+[![DOI](https://zenodo.org/badge/15164764.svg)](https://zenodo.org/badge/latestdoi/15164764)
+
 Tool for assigning a putative cellular location to a protein.
 
 Reference: 

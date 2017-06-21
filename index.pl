@@ -4,6 +4,7 @@
 use Mojolicious::Lite;
 use Protloc;
 use Data::Dumper;
+use JSON qw(decode_json);
 
 get '/' => sub {
 	my $self = shift;
@@ -49,6 +50,75 @@ get '/api/seq/:seq' => sub {
 	$seqs[0] = {};
 	$seqs[0]->{"seq"} = $seq;
 	$seqs[0]->{"distance"} = \@outcome;
+	
+	$out->{"program"} = "ProtLoc";
+	$out->{"version"} = "0.1.0";
+	$out->{"results"} = \@seqs;
+	
+	$self->render(json => $out );
+};
+
+
+# Route with placeholder
+post '/api/batch/' => sub {
+	
+	my $self = shift;
+
+	my $out;
+	
+	my @seqs = ();
+	
+	if ( defined( $self->req ) ) {
+		
+		if ( defined( $self->req->body ) ) {
+			
+			my $body =  $self->req->body;
+			
+			my $array = decode_json( $body );
+
+			if ( $array ) {
+				if (ref($array) eq 'ARRAY') {
+					
+					print "Here!";
+					my $iter = 1;
+					foreach my $case ( @{$array} ) {
+						
+						my $id = "seq".$iter; 
+						if ( defined( $case->{"id"} ) ) {
+							$id = $case->{"id"};
+						}
+						
+						if ( defined( $case->{"seq"} ) ) {
+							my $seq = $case->{"seq"};
+							my $value = process( $seq );
+							
+							my @outcome;
+
+							foreach my $entry (sort { $value->{$a} <=> $value->{$b} } keys %{$value}) {
+							
+								my %result;
+								$result{$entry} = $value->{$entry};
+								push( @outcome, \%result );
+							}
+							
+							my $struct = {};
+							$struct->{"id"} = $id;
+							$struct->{"distance"} = \@outcome;
+							
+							push( @seqs, $struct );
+							
+						} 
+						
+						$iter++;
+						
+					}
+					
+				}
+			}
+
+		}
+		
+	}
 	
 	$out->{"program"} = "ProtLoc";
 	$out->{"version"} = "0.1.0";

@@ -153,7 +153,7 @@ __DATA__
 <li>J. Cedano, P. Aloy, J.A. Pérez-Pons, and E. Querol, <em>Relation between aminoacid composition and cellular localisation of proteins</em>, Journal of Molecular Biology, 266, 594-600, 1997.</li>
 </ul>
 </blockquote>
-<p align='right'>Contact <a href='mailto:toniher\@bioinf.uab.cat'>toniher@bioinf.uab.cat</a> IBB-UAB 2002-2016</p>
+<p align='right'>Contact <a href='mailto:toniher\@bioinf.uab.cat'>toniher@bioinf.uab.cat</a> IBB-UAB 2002-2018</p>
 </body>
 </html>
 
